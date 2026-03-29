@@ -20,116 +20,108 @@ const inventory = [
     { id: "gatehouse_key", name: "Gatehouse Key", type: "key", encode: "gk" },
     { id: "gun_fort_shrine_key", name: "Gun Fort Shrine Key", type: "key", encode: "gfk" },
     { id: "hidden_temple_key", name: "Hidden Temple Key", type: "key", encode: "htk" },
-];
+]
 
-const encodes = inventory.map(i => i.encode);
-const seen = new Set();
+const encodes = inventory.map(i => i.encode)
+const seen = new Set()
 for (const e of encodes) {
-    if (seen.has(e)) console.error("Duplicate encode:", e);
-    seen.add(e);
+    if (seen.has(e)) console.error("Duplicate encode:", e)
+    seen.add(e)
 }
 
-function getSource(id) {
-    return "img/" + id + ".png";
-}
+const getSource = (id) => `img/${id}.png`
 
-function getSelectedFromUrl() {
-    const params = new URLSearchParams(window.location.search);
-    const sel = params.get("sel");
-    if (!sel) return new Set();
-    const selectedEncodes = sel.split(",").filter(e => e);
-    const selectedIds = new Set();
+const getSelectedFromUrl = () => {
+    const params = new URLSearchParams(window.location.search)
+    const sel = params.get("sel")
+    if (!sel) return new Set()
+    const selectedEncodes = sel.split(",").filter(e => e)
+    const selectedIds = new Set()
     for (const item of inventory) {
         if (selectedEncodes.includes(item.encode)) {
-            selectedIds.add(item.id);
+            selectedIds.add(item.id)
         }
     }
-    return selectedIds;
+    return selectedIds
 }
 
-function updateUrl(imgId, selected) {
-    const selectedEncodes = [];
-    for (const item of inventory) {
-        const img = document.getElementById(item.id);
-        if (img && img.classList.contains("selected")) {
-            selectedEncodes.push(item.encode);
-        }
-    }
-    const url = new URL(window.location);
+const updateUrl = () => {
+    const selectedEncodes = inventory
+        .map(item => ({ item, img: document.getElementById(item.id) }))
+        .filter(({ img }) => img?.classList.contains("selected"))
+        .map(({ item }) => item.encode)
+
+    const url = new URL(window.location)
     if (selectedEncodes.length === 0) {
-        url.searchParams.delete("sel");
+        url.searchParams.delete("sel")
     } else {
-        url.searchParams.set("sel", selectedEncodes.join(","));
+        url.searchParams.set("sel", selectedEncodes.join(","))
     }
-    history.replaceState(null, "", url);
+    history.replaceState(null, "", url)
 }
 
-function ShowTooltip(event) {
-    document.getElementById("tooltip_" + event.target.id).classList.remove("invisible");
+const ShowTooltip = (event) => {
+    document.getElementById("tooltip_" + event.target.id).classList.remove("invisible")
 }
 
-function HideTooltip(event) {
-    document.getElementById("tooltip_" + event.target.id).classList.add("invisible");
+const HideTooltip = (event) => {
+    document.getElementById("tooltip_" + event.target.id).classList.add("invisible")
 }
 
-function PreventContextMenu(event) {
-    event.preventDefault();
-    return false;
+const PreventContextMenu = (event) => {
+    event.preventDefault()
+    return false
 }
 
-function ToggleItem(event) {
-    let target = event.target;
+const ToggleItem = (event) => {
+    const target = event.target
     if (event.button === 0) {
         if (target.classList.contains("selected")) {
-            target.classList.remove("selected");
-            updateUrl(target.id, false);
+            target.classList.remove("selected")
         } else {
-            target.classList.add("selected");
-            updateUrl(target.id, true);
+            target.classList.add("selected")
         }
+        updateUrl()
     }
 }
 
-function init() {
-    let container = document.getElementById("inventory-container");
-    const selectedIds = getSelectedFromUrl();
+const init = () => {
+    const container = document.getElementById("inventory-container")
+    const selectedIds = getSelectedFromUrl()
 
-    for (let i = 0; i < inventory.length; i++) {
-        let item = inventory[i];
-        let source = getSource(item.id);
-
+    inventory.forEach((item, i) => {
         if (i === 7) {
-            container.appendChild(document.createElement("br"));
+            container.appendChild(document.createElement("br"))
         }
 
-        let div = document.createElement("div");
-        div.className = "element";
+        const div = document.createElement("div")
+        div.className = "element"
 
-        let img = document.createElement("img");
-        img.className = "inventory";
-        img.alt = item.name;
-        img.src = source;
-        img.id = item.id;
-        img.dataset.type = item.type;
+        const img = document.createElement("img")
+        img.className = "inventory"
+        img.alt = item.name
+        img.src = getSource(item.id)
+        img.id = item.id
+        img.dataset.type = item.type
 
-        let tooltip = document.createElement("div");
-        tooltip.id = "tooltip_" + item.id;
-        tooltip.className = "invisible tooltip inventory";
-        tooltip.textContent = item.name;
+        const tooltip = document.createElement("div")
+        tooltip.id = "tooltip_" + item.id
+        tooltip.className = "invisible tooltip inventory"
+        tooltip.textContent = item.name
 
-        div.appendChild(img);
-        div.appendChild(tooltip);
-        container.appendChild(div);
+        div.appendChild(img)
+        div.appendChild(tooltip)
+        container.appendChild(div)
 
         if (selectedIds.has(item.id)) {
-            img.classList.add("selected");
+            img.classList.add("selected")
         }
 
-        img.onmouseup = function(e) { ToggleItem(e); };
-        img.oncontextmenu = function(e) { PreventContextMenu(e); };
-        img.onmouseenter = function(e) { ShowTooltip(e); };
-        img.onmouseleave = function(e) { HideTooltip(e); };
-    }
+        img.onmouseup = ToggleItem
+        img.oncontextmenu = PreventContextMenu
+        img.onmouseenter = ShowTooltip
+        img.onmouseleave = HideTooltip
+    })
 }
 
-init();
+init()

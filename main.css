@@ -27,14 +27,14 @@
 
 html {
     font-size: 12px;
-    font-family: serif;
+    font-family: Arial, sans-serif;
     word-wrap: break-word;
     scrollbar-gutter: stable;
 }
 
 body {
     margin: 0px 30px;
-    background-color: transparent;
+    background-color: var(--bg-color);
     color: var(--text-color);
     overflow-x: hidden;
 }
@@ -52,13 +52,13 @@ h1 {
 }
 
 img {
-    border: 3px solid;
+    border: 5px solid;
     border-radius: 30%;
     margin: 0;
 }
 
 .sticky {
-    background-color: transparent;
+    background-color: var(--bg-color);
     z-index: var(--z-sticky);
     position: sticky;
     top: 0;
@@ -79,7 +79,7 @@ img {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    font-size: 18px;
+    font-size: 21px;
 }
 .label-required {
     color: white;
@@ -92,7 +92,7 @@ img {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 18px;
+    font-size: 21px;
 }
 .col-header-invasion {
     grid-column: 2 / span 3;

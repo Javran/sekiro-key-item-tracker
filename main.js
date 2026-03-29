@@ -30,12 +30,14 @@ function PreventContextMenu(event) {
 
 function ToggleItem(event) {
     let target = event.target;
-    if (target.classList.contains("selected")) {
-        target.classList.remove("selected");
-        localStorage.setItem(target.id, "false");
-    } else {
-        target.classList.add("selected");
-        localStorage.setItem(target.id, "true");
+    if (event.button === 0) {
+        if (target.classList.contains("selected")) {
+            target.classList.remove("selected");
+            localStorage.setItem(target.id, "false");
+        } else {
+            target.classList.add("selected");
+            localStorage.setItem(target.id, "true");
+        }
     }
 }
 

@@ -173,3 +173,27 @@ inventory.slice(7).forEach(item => {
         document.getElementById("tooltip_" + event.target.id).classList.add("invisible")
     }
 })
+
+const resetRadios = document.querySelectorAll('input[name="reset"]')
+const resetBtn = document.getElementById("reset-btn")
+
+const resetNo = Array.from(resetRadios).find(r => r.value === "no")
+const resetYes = Array.from(resetRadios).find(r => r.value === "yes")
+
+resetBtn.disabled = true
+
+const updateResetButton = () => {
+    resetBtn.disabled = !resetYes.checked
+}
+
+if (resetNo) resetNo.onchange = updateResetButton
+if (resetYes) resetYes.onchange = updateResetButton
+
+resetBtn.onclick = () => {
+    document.querySelectorAll('.inventory.selected').forEach(img => {
+        img.classList.remove('selected')
+    })
+    updateUrl()
+    if (resetNo) resetNo.checked = true
+    resetBtn.disabled = true
+}

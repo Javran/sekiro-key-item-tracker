@@ -166,3 +166,28 @@ hr {
     top: auto;
     left: auto;
 }
+
+#control-panel {
+    background-color: rgb(60, 50, 35);
+    padding: 20px;
+    border-radius: 10px;
+    margin: 30px 10px 10px;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+#control-panel .control-group {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+#control-panel .control-group > span {
+    font-weight: bold;
+    min-width: 100px;
+}
+#control-panel .control-group label {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}

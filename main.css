@@ -7,7 +7,7 @@
     --color6: rgb(163, 97,  67);
     --color7: rgb(171, 121, 81);
     --color8: rgb(247, 225, 181);
-    --blue:   rgb(100, 200, 255);
+    --blue:   hsl(200, 100%, 70%);
 
     --text-color:         var(--color8);
     --tooltip-text-color: var(--color8);
@@ -19,10 +19,10 @@
     --z-sticky: 10;
     --z-tooltip: 5;
 
-    --color-invasion: rgb(0, 255, 0);
-    --color-dragon: rgb(0, 100, 255);
-    --color-finish: rgb(255, 0, 0);
-    --color-key: rgb(255, 255, 0);
+    --color-invasion: hsl(120, 100%, 50%);
+    --color-dragon: hsl(240, 100%, 50%);
+    --color-finish: hsl(0, 100%, 50%);
+    --color-key: hsl(60, 100%, 50%);
 }
 
 html {
@@ -96,15 +96,15 @@ img {
 }
 .col-header-invasion {
     grid-column: 2 / span 3;
-    color: rgb(153, 255, 153);
+    color: hsl(120, 40%, 60%);
 }
 .col-header-dragon {
     grid-column: 5 / span 2;
-    color: rgb(153, 153, 255);
+    color: hsl(240, 40%, 60%);
 }
 .col-header-finish {
     grid-column: 7 / span 2;
-    color: rgb(255, 153, 153);
+    color: hsl(0, 40%, 60%);
 }
 
 hr {

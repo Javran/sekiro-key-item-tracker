@@ -197,3 +197,22 @@ resetBtn.onclick = () => {
     if (resetNo) resetNo.checked = true
     resetBtn.disabled = true
 }
+
+// Top texts controls
+const colorInvasion = document.getElementById("color-invasion")
+const colorDragon = document.getElementById("color-dragon")
+const colorFinish = document.getElementById("color-finish")
+const sizeTop = document.getElementById("size-top")
+
+colorInvasion.oninput = () => {
+    document.documentElement.style.setProperty('--text-invasion', colorInvasion.value)
+}
+colorDragon.oninput = () => {
+    document.documentElement.style.setProperty('--text-dragon', colorDragon.value)
+}
+colorFinish.oninput = () => {
+    document.documentElement.style.setProperty('--text-finish', colorFinish.value)
+}
+sizeTop.oninput = () => {
+    document.documentElement.style.setProperty('--top-text-size', sizeTop.value + 'px')
+}

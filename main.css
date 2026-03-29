@@ -23,6 +23,10 @@
     --color-dragon: hsl(240, 100%, 50%);
     --color-finish: hsl(0, 100%, 50%);
     --color-key: hsl(60, 100%, 50%);
+
+    --text-invasion: hsl(120, 40%, 60%);
+    --text-dragon: hsl(240, 40%, 60%);
+    --text-finish: hsl(0, 40%, 60%);
 }
 
 html {
@@ -92,19 +96,19 @@ img {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 21px;
+    font-size: var(--top-text-size, 21px);
 }
 .col-header-invasion {
     grid-column: 2 / span 3;
-    color: hsl(120, 40%, 60%);
+    color: var(--text-invasion);
 }
 .col-header-dragon {
     grid-column: 5 / span 2;
-    color: hsl(240, 40%, 60%);
+    color: var(--text-dragon);
 }
 .col-header-finish {
     grid-column: 7 / span 2;
-    color: hsl(0, 40%, 60%);
+    color: var(--text-finish);
 }
 
 hr {

@@ -1,0 +1,109 @@
+:root {
+    --color1: rgb(41,  35,  23);
+    --color2: rgb(67,  53,  28);
+    --color3: rgb(105, 65,  78);
+    --color4: rgb(127, 95,  69);
+    --color5: rgb(144, 98,  72);
+    --color6: rgb(163, 97,  67);
+    --color7: rgb(171, 121, 81);
+    --color8: rgb(247, 225, 181);
+    --blue:   rgb(48,  161, 151);
+
+    --text-color:         var(--color8);
+    --tooltip-text-color: var(--color8);
+    --tooltip-bg-color:   var(--color1);
+    --bg-color:           var(--color1);
+    --link-color:         var(--color7);
+
+    --z-config: 15;
+    --z-sticky: 10;
+    --z-tooltip: 5;
+}
+
+html {
+    font-size: 12px;
+    font-family: serif;
+    word-wrap: break-word;
+    scrollbar-gutter: stable;
+}
+
+body {
+    margin: 0px 30px;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    overflow-x: hidden;
+}
+
+a {
+    color: var(--blue);
+}
+a:hover {
+    color: var(--text-color);
+}
+
+h1 {
+    color: var(--link-color);
+    margin-bottom: 0%;
+}
+
+img {
+    border: 3px solid;
+    border-radius: 30%;
+    margin: 1px;
+}
+
+.sticky {
+    background-color: var(--bg-color);
+    z-index: var(--z-sticky);
+    position: sticky;
+    top: 0;
+}
+
+hr {
+    border: 2px solid var(--color2);
+    border-radius: 100%;
+}
+
+.inventory {
+    width: 50px;
+    height: auto;
+    border-color: var(--blue);
+    filter: grayscale(100%) opacity(75%);
+}
+.inventory.selected {
+    filter: none !important;
+}
+
+.element {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip {
+    position: absolute;
+    text-align: center;
+    color: var(--tooltip-text-color);
+    background-color: var(--tooltip-bg-color);
+    border-radius: 10%;
+    z-index: var(--z-tooltip);
+    filter: opacity(75%) !important;
+}
+.tooltip.inventory {
+    font-size: 10px;
+    width: 70px;
+    height: 25px;
+    bottom: -20px;
+    left:   -8px;
+}
+.invisible {
+    visibility: hidden;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+}
+.tooltip.invisible {
+    visibility: hidden;
+    position: absolute;
+    top: auto;
+    left: auto;
+}

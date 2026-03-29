@@ -152,6 +152,7 @@ hr {
     text-align: center;
     color: var(--tooltip-text-color);
     background-color: var(--tooltip-bg-color);
+    border: none;
     border-radius: 10%;
     z-index: var(--z-tooltip);
     filter: opacity(75%) !important;

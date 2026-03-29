@@ -199,16 +199,20 @@ const sizeTopValue = document.getElementById("size-top-value")
 
 colorInvasion.oninput = () => {
     document.documentElement.style.setProperty('--text-invasion', colorInvasion.value)
+    checkUnsavedChanges()
 }
 colorDragon.oninput = () => {
     document.documentElement.style.setProperty('--text-dragon', colorDragon.value)
+    checkUnsavedChanges()
 }
 colorFinish.oninput = () => {
     document.documentElement.style.setProperty('--text-finish', colorFinish.value)
+    checkUnsavedChanges()
 }
 sizeTop.oninput = () => {
     document.documentElement.style.setProperty('--top-text-size', sizeTop.value + 'px')
     sizeTopValue.textContent = sizeTop.value
+    checkUnsavedChanges()
 }
 
 // Left column controls
@@ -219,13 +223,16 @@ const sizeLeftValue = document.getElementById("size-left-value")
 
 colorRequired.oninput = () => {
     document.documentElement.style.setProperty('--text-required', colorRequired.value)
+    checkUnsavedChanges()
 }
 colorKeys.oninput = () => {
     document.documentElement.style.setProperty('--text-keys', colorKeys.value)
+    checkUnsavedChanges()
 }
 sizeLeft.oninput = () => {
     document.documentElement.style.setProperty('--left-text-size', sizeLeft.value + 'px')
     sizeLeftValue.textContent = sizeLeft.value
+    checkUnsavedChanges()
 }
 
 // Items controls
@@ -238,19 +245,24 @@ const borderThicknessValue = document.getElementById("border-thickness-value")
 
 borderInvasion.oninput = () => {
     document.documentElement.style.setProperty('--color-invasion', borderInvasion.value)
+    checkUnsavedChanges()
 }
 borderDragon.oninput = () => {
     document.documentElement.style.setProperty('--color-dragon', borderDragon.value)
+    checkUnsavedChanges()
 }
 borderFinish.oninput = () => {
     document.documentElement.style.setProperty('--color-finish', borderFinish.value)
+    checkUnsavedChanges()
 }
 borderKey.oninput = () => {
     document.documentElement.style.setProperty('--color-key', borderKey.value)
+    checkUnsavedChanges()
 }
 borderThickness.oninput = () => {
     document.documentElement.style.setProperty('--border-thickness', borderThickness.value + 'px')
     borderThicknessValue.textContent = borderThickness.value
+    checkUnsavedChanges()
 }
 
 // Transparent BG
@@ -258,11 +270,47 @@ const transparentBg = document.getElementById("transparent-bg")
 transparentBg.onchange = () => {
     document.body.style.backgroundColor = transparentBg.checked ? 'transparent' : 'var(--bg-color)'
     document.querySelector('.sticky').style.backgroundColor = transparentBg.checked ? 'transparent' : 'var(--bg-color)'
+    checkUnsavedChanges()
 }
 
 // Persist style
 const saveBtn = document.getElementById("save-style")
 const loadBtn = document.getElementById("load-style")
+
+const getCurrentStyle = () => ({
+    topTexts: {
+        invasion: colorInvasion.value,
+        dragon: colorDragon.value,
+        finish: colorFinish.value,
+        size: sizeTop.value
+    },
+    leftColumn: {
+        required: colorRequired.value,
+        keys: colorKeys.value,
+        size: sizeLeft.value
+    },
+    items: {
+        invasion: borderInvasion.value,
+        dragon: borderDragon.value,
+        finish: borderFinish.value,
+        key: borderKey.value,
+        thickness: borderThickness.value
+    },
+    misc: {
+        transparentBg: transparentBg.checked
+    }
+})
+
+let savedStyle = null
+
+const checkUnsavedChanges = () => {
+    const current = JSON.stringify(getCurrentStyle())
+    if (savedStyle && current !== savedStyle) {
+        saveBtn.style.backgroundColor = 'red'
+    } else {
+        saveBtn.style.backgroundColor = ''
+    }
+}
 
 saveBtn.onclick = () => {
     const style = {
@@ -289,6 +337,8 @@ saveBtn.onclick = () => {
         }
     }
     localStorage.setItem("sekiro-style", JSON.stringify(style))
+    savedStyle = JSON.stringify(getCurrentStyle())
+    checkUnsavedChanges()
 }
 
 loadBtn.onclick = () => {
@@ -336,7 +386,25 @@ loadBtn.onclick = () => {
         document.body.style.backgroundColor = transparentBg.checked ? 'transparent' : 'var(--bg-color)'
         document.querySelector('.sticky').style.backgroundColor = transparentBg.checked ? 'transparent' : 'var(--bg-color)'
     }
+
+    savedStyle = JSON.stringify(getCurrentStyle())
+    checkUnsavedChanges()
 }
 
 // Auto-load on page load
 loadBtn.onclick()
+savedStyle = JSON.stringify(getCurrentStyle())
+checkUnsavedChanges()
+
+// Reset style to default
+const styleResetConfirm = document.getElementById("style-reset-confirm")
+const styleResetBtn = document.getElementById("style-reset-btn")
+
+styleResetConfirm.onchange = () => {
+    styleResetBtn.disabled = !styleResetConfirm.checked
+}
+
+styleResetBtn.onclick = () => {
+    localStorage.removeItem("sekiro-style")
+    location.reload()
+}

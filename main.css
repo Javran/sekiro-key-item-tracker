@@ -34,7 +34,7 @@ html {
 
 body {
     margin: 0px 30px;
-    background-color: var(--bg-color);
+    background-color: transparent;
     color: var(--text-color);
     overflow-x: hidden;
 }
@@ -58,7 +58,7 @@ img {
 }
 
 .sticky {
-    background-color: var(--bg-color);
+    background-color: transparent;
     z-index: var(--z-sticky);
     position: sticky;
     top: 0;

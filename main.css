@@ -186,6 +186,7 @@ hr {
     display: flex;
     flex-direction: column;
     gap: 15px;
+    user-select: none;
 }
 #control-panel .control-group {
     display: flex;

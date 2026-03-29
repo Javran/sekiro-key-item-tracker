@@ -279,11 +279,19 @@ const groupTopTexts = document.getElementById("group-top-texts")
 const groupLeftColumn = document.getElementById("group-left-column")
 const groupItems = document.getElementById("group-items")
 
-showControls.onchange = () => {
-    const visible = showControls.checked
-    groupTopTexts.style.display = visible ? 'flex' : 'none'
-    groupLeftColumn.style.display = visible ? 'flex' : 'none'
-    groupItems.style.display = visible ? 'flex' : 'none'
+showControls.onclick = () => {
+    const visible = showControls.textContent === "Hide Controls"
+    if (visible) {
+        showControls.textContent = "Show Controls"
+        groupTopTexts.style.display = 'none'
+        groupLeftColumn.style.display = 'none'
+        groupItems.style.display = 'none'
+    } else {
+        showControls.textContent = "Hide Controls"
+        groupTopTexts.style.display = 'flex'
+        groupLeftColumn.style.display = 'flex'
+        groupItems.style.display = 'flex'
+    }
 }
 
 // Persist style

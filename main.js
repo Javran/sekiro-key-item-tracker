@@ -203,6 +203,7 @@ const colorInvasion = document.getElementById("color-invasion")
 const colorDragon = document.getElementById("color-dragon")
 const colorFinish = document.getElementById("color-finish")
 const sizeTop = document.getElementById("size-top")
+const sizeTopValue = document.getElementById("size-top-value")
 
 colorInvasion.oninput = () => {
     document.documentElement.style.setProperty('--text-invasion', colorInvasion.value)
@@ -215,4 +216,5 @@ colorFinish.oninput = () => {
 }
 sizeTop.oninput = () => {
     document.documentElement.style.setProperty('--top-text-size', sizeTop.value + 'px')
+    sizeTopValue.textContent = sizeTop.value
 }

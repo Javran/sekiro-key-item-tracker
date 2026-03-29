@@ -1,19 +1,23 @@
 const inventory = [
-    { name: "Prosthetic Tool", id: "owned_prosthetic_tool", source: "img/prosthetic_tool.png" },
-    { name: "Bell Charm", id: "owned_bell_charm", source: "img/bell_charm.png" },
-    { name: "Gatehouse Key", id: "owned_gatehouse_key", source: "img/gatehouse_key.png" },
-    { name: "Gun Fort Shrine Key", id: "owned_gun_fort_shrine_key", source: "img/gun_fort_shrine_key.png" },
-    { name: "Hidden Temple Key", id: "owned_hidden_temple_key", source: "img/hidden_temple_key.png" },
-    { name: "Secret Passage Key", id: "owned_secret_passage_key", source: "img/secret_passage_key.png" },
-    { name: "Lotus of the Palace", id: "owned_lotus_of_the_palace", source: "img/lotus_of_the_palace.png" },
-    { name: "Shelter Stone", id: "owned_shelter_stone", source: "img/shelter_stone.png" },
-    { name: "Mortal Blade", id: "owned_mortal_blade", source: "img/mortal_blade.png" },
-    { name: "Aromatic Branch", id: "owned_aromatic_branch", source: "img/aromatic_branch.png" },
-    { name: "Divine Dragon's Tears", id: "owned_divine_dragons_tears", source: "img/divine_dragons_tears.png" },
-    { name: "Puppeteer Ninjutsu", id: "owned_puppeteer_ninjutsu", source: "img/puppeteer_ninjutsu.png" },
-    { name: "Mibu Breathing Technique", id: "owned_mibu_breathing_technique", source: "img/mibu_breathing_technique.jpg" },
-    { name: "Father's Bell Charm", id: "owned_fathers_bell_charm", source: "img/fathers_bell_charm.png" },
+    { id: "prosthetic_tool", name: "Prosthetic Tool" },
+    { id: "bell_charm", name: "Bell Charm" },
+    { id: "gatehouse_key", name: "Gatehouse Key" },
+    { id: "gun_fort_shrine_key", name: "Gun Fort Shrine Key" },
+    { id: "hidden_temple_key", name: "Hidden Temple Key" },
+    { id: "secret_passage_key", name: "Secret Passage Key" },
+    { id: "lotus_of_the_palace", name: "Lotus of the Palace" },
+    { id: "shelter_stone", name: "Shelter Stone" },
+    { id: "mortal_blade", name: "Mortal Blade" },
+    { id: "aromatic_branch", name: "Aromatic Branch" },
+    { id: "divine_dragons_tears", name: "Divine Dragon's Tears" },
+    { id: "puppeteer_ninjutsu", name: "Puppeteer Ninjutsu" },
+    { id: "mibu_breathing_technique", name: "Mibu Breathing Technique" },
+    { id: "fathers_bell_charm", name: "Father's Bell Charm" },
 ];
+
+function getSource(id) {
+    return "img/" + id + ".png";
+}
 
 function ShowTooltip(event) {
     document.getElementById("tooltip_" + event.target.id).classList.remove("invisible");
@@ -42,18 +46,39 @@ function ToggleItem(event) {
 }
 
 function init() {
+    let container = document.getElementById("inventory-container");
+
     for (let item of inventory) {
-        let element = document.getElementById(item.id);
-        if (!element) continue;
+        let source = getSource(item.id);
+
+        let div = document.createElement("div");
+        div.className = "element";
+
+        let img = document.createElement("img");
+        img.className = "inventory";
+        img.alt = item.name;
+        img.src = source;
+        img.id = item.id;
+
+        let tooltip = document.createElement("div");
+        tooltip.id = "tooltip_" + item.id;
+        tooltip.className = "invisible tooltip inventory";
+        tooltip.textContent = item.name;
+
+        div.appendChild(img);
+        div.appendChild(tooltip);
+        container.appendChild(div);
 
         let saved = localStorage.getItem(item.id);
         if (saved === "true") {
-            element.classList.add("selected");
+            img.classList.add("selected");
         }
 
-        element.onmouseup = function(e) { ToggleItem(e); };
-        element.oncontextmenu = function(e) { PreventContextMenu(e); };
-        element.onmouseenter = function(e) { ShowTooltip(e); };
-        element.onmouseleave = function(e) { HideTooltip(e); };
+        img.onmouseup = function(e) { ToggleItem(e); };
+        img.oncontextmenu = function(e) { PreventContextMenu(e); };
+        img.onmouseenter = function(e) { ShowTooltip(e); };
+        img.onmouseleave = function(e) { HideTooltip(e); };
     }
 }
+
+init();

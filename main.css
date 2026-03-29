@@ -54,7 +54,7 @@ h1 {
 img {
     border: 3px solid;
     border-radius: 30%;
-    margin: 1px;
+    margin: 0;
 }
 
 .sticky {
@@ -62,8 +62,30 @@ img {
     z-index: var(--z-sticky);
     position: sticky;
     top: 0;
-    text-align: center;
     padding-top: 10px;
+}
+
+#inventory-container {
+    display: grid;
+    grid-template-columns: repeat(8, auto);
+    gap: 2px;
+    width: fit-content;
+    margin: 0 auto;
+    font-size: 0;
+}
+
+.row-label {
+    grid-column: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    font-size: 18px;
+}
+.label-required {
+    color: white;
+}
+.label-keys {
+    color: yellow;
 }
 
 hr {
@@ -95,7 +117,6 @@ hr {
 
 .element {
     position: relative;
-    display: inline-block;
 }
 
 .tooltip {

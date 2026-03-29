@@ -29,7 +29,7 @@ for (const e of encodes) {
     seen.add(e)
 }
 
-const getSource = (id) => `img/${id}.png`
+const getSource = id => `img/${id}.png`
 
 const getSelectedFromUrl = () => {
     const params = new URLSearchParams(window.location.search)
@@ -60,68 +60,101 @@ const updateUrl = () => {
     history.replaceState(null, "", url)
 }
 
-const ShowTooltip = (event) => {
-    document.getElementById("tooltip_" + event.target.id).classList.remove("invisible")
-}
+const container = document.getElementById("inventory-container")
+const selectedIds = getSelectedFromUrl()
 
-const HideTooltip = (event) => {
-    document.getElementById("tooltip_" + event.target.id).classList.add("invisible")
-}
+const requiredLabel = document.createElement("div")
+requiredLabel.className = "row-label label-required"
+requiredLabel.textContent = "Required:"
+container.appendChild(requiredLabel)
 
-const PreventContextMenu = (event) => {
-    event.preventDefault()
-    return false
-}
+inventory.slice(0, 7).forEach(item => {
+    const div = document.createElement("div")
+    div.className = "element"
 
-const ToggleItem = (event) => {
-    const target = event.target
-    if (event.button === 0) {
-        if (target.classList.contains("selected")) {
-            target.classList.remove("selected")
-        } else {
-            target.classList.add("selected")
-        }
-        updateUrl()
+    const img = document.createElement("img")
+    img.className = "inventory"
+    img.alt = item.name
+    img.src = getSource(item.id)
+    img.id = item.id
+    img.dataset.type = item.type
+
+    const tooltip = document.createElement("div")
+    tooltip.id = "tooltip_" + item.id
+    tooltip.className = "invisible tooltip inventory"
+    tooltip.textContent = item.name
+
+    div.appendChild(img)
+    div.appendChild(tooltip)
+    container.appendChild(div)
+
+    if (selectedIds.has(item.id)) {
+        img.classList.add("selected")
     }
-}
 
-const init = () => {
-    const container = document.getElementById("inventory-container")
-    const selectedIds = getSelectedFromUrl()
-
-    inventory.forEach((item, i) => {
-        if (i === 7) {
-            container.appendChild(document.createElement("br"))
+    img.onmouseup = event => {
+        const target = event.target
+        if (event.button === 0) {
+            target.classList.toggle("selected")
+            updateUrl()
         }
+    }
+    img.oncontextmenu = event => {
+        event.preventDefault()
+        return false
+    }
+    img.onmouseenter = event => {
+        document.getElementById("tooltip_" + event.target.id).classList.remove("invisible")
+    }
+    img.onmouseleave = event => {
+        document.getElementById("tooltip_" + event.target.id).classList.add("invisible")
+    }
+})
 
-        const div = document.createElement("div")
-        div.className = "element"
+const keysLabel = document.createElement("div")
+keysLabel.className = "row-label label-keys"
+keysLabel.textContent = "Keys:"
+container.appendChild(keysLabel)
 
-        const img = document.createElement("img")
-        img.className = "inventory"
-        img.alt = item.name
-        img.src = getSource(item.id)
-        img.id = item.id
-        img.dataset.type = item.type
+inventory.slice(7).forEach(item => {
+    const div = document.createElement("div")
+    div.className = "element"
 
-        const tooltip = document.createElement("div")
-        tooltip.id = "tooltip_" + item.id
-        tooltip.className = "invisible tooltip inventory"
-        tooltip.textContent = item.name
+    const img = document.createElement("img")
+    img.className = "inventory"
+    img.alt = item.name
+    img.src = getSource(item.id)
+    img.id = item.id
+    img.dataset.type = item.type
 
-        div.appendChild(img)
-        div.appendChild(tooltip)
-        container.appendChild(div)
+    const tooltip = document.createElement("div")
+    tooltip.id = "tooltip_" + item.id
+    tooltip.className = "invisible tooltip inventory"
+    tooltip.textContent = item.name
 
-        if (selectedIds.has(item.id)) {
-            img.classList.add("selected")
+    div.appendChild(img)
+    div.appendChild(tooltip)
+    container.appendChild(div)
+
+    if (selectedIds.has(item.id)) {
+        img.classList.add("selected")
+    }
+
+    img.onmouseup = event => {
+        const target = event.target
+        if (event.button === 0) {
+            target.classList.toggle("selected")
+            updateUrl()
         }
-
-        img.onmouseup = ToggleItem
-        img.oncontextmenu = PreventContextMenu
-        img.onmouseenter = ShowTooltip
-        img.onmouseleave = HideTooltip
-    })
-}
-
-init()
+    }
+    img.oncontextmenu = event => {
+        event.preventDefault()
+        return false
+    }
+    img.onmouseenter = event => {
+        document.getElementById("tooltip_" + event.target.id).classList.remove("invisible")
+    }
+    img.onmouseleave = event => {
+        document.getElementById("tooltip_" + event.target.id).classList.add("invisible")
+    }
+})

@@ -63,6 +63,21 @@ const updateUrl = () => {
 const container = document.getElementById("inventory-container")
 const selectedIds = getSelectedFromUrl()
 
+const invasionHeader = document.createElement("div")
+invasionHeader.className = "col-header col-header-invasion"
+invasionHeader.textContent = "Invasion"
+container.appendChild(invasionHeader)
+
+const dragonHeader = document.createElement("div")
+dragonHeader.className = "col-header col-header-dragon"
+dragonHeader.textContent = "Dragon"
+container.appendChild(dragonHeader)
+
+const finishHeader = document.createElement("div")
+finishHeader.className = "col-header col-header-finish"
+finishHeader.textContent = "Finish"
+container.appendChild(finishHeader)
+
 const requiredLabel = document.createElement("div")
 requiredLabel.className = "row-label label-required"
 requiredLabel.textContent = "Required:"

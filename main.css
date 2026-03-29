@@ -88,6 +88,25 @@ img {
     color: yellow;
 }
 
+.col-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+}
+.col-header-invasion {
+    grid-column: 2 / span 3;
+    color: rgb(50, 180, 50);
+}
+.col-header-dragon {
+    grid-column: 5 / span 2;
+    color: rgb(50, 120, 180);
+}
+.col-header-finish {
+    grid-column: 7 / span 2;
+    color: rgb(180, 50, 50);
+}
+
 hr {
     border: 2px solid var(--color2);
     border-radius: 100%;

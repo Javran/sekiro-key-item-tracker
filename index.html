@@ -19,7 +19,7 @@
   </div>
 
   <div id="control-panel">
-    <div class="control-group">
+    <div class="control-group" id="group-top-texts">
       <span>Top texts</span>
       <label>Invasion <input type="color" id="color-invasion" value="#66ff66"></label>
       <label>Dragon <input type="color" id="color-dragon" value="#6666ff"></label>
@@ -27,14 +27,14 @@
       <label>Size <input type="range" id="size-top" min="12" max="36" value="21"> <span id="size-top-value">21</span></label>
     </div>
 
-    <div class="control-group">
+    <div class="control-group" id="group-left-column">
       <span>Left column</span>
       <label>Required <input type="color" id="color-required" value="#ffffff"></label>
       <label>Keys <input type="color" id="color-keys" value="#ffff00"></label>
       <label>Size <input type="range" id="size-left" min="12" max="36" value="21"> <span id="size-left-value">21</span></label>
     </div>
 
-    <div class="control-group">
+    <div class="control-group" id="group-items">
       <span>Items</span>
       <label>Invasion <input type="color" id="border-invasion" value="#00ff00"></label>
       <label>Dragon <input type="color" id="border-dragon" value="#0064ff"></label>
@@ -43,7 +43,7 @@
       <label>Border <input type="range" id="border-thickness" min="1" max="10" value="5"> <span id="border-thickness-value">5</span></label>
     </div>
 
-    <div class="control-group">
+    <div class="control-group" id="group-misc">
       <span>Misc.</span>
       <label>Transparent BG <input type="checkbox" id="transparent-bg"></label>
       <label>Reset items? <input type="checkbox" id="reset-confirm"></label>
@@ -52,6 +52,7 @@
 
     <div class="control-group">
       <span>Appearance</span>
+      <label>Show/Hide <input type="checkbox" id="show-controls" checked></label>
       <button id="save-style">Save</button>
       <button id="load-style">Load</button>
       <label>Reset to default? <input type="checkbox" id="style-reset-confirm"></label>

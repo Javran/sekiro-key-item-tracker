@@ -273,6 +273,19 @@ transparentBg.onchange = () => {
     checkUnsavedChanges()
 }
 
+// Show/Hide controls
+const showControls = document.getElementById("show-controls")
+const groupTopTexts = document.getElementById("group-top-texts")
+const groupLeftColumn = document.getElementById("group-left-column")
+const groupItems = document.getElementById("group-items")
+
+showControls.onchange = () => {
+    const visible = showControls.checked
+    groupTopTexts.style.display = visible ? 'flex' : 'none'
+    groupLeftColumn.style.display = visible ? 'flex' : 'none'
+    groupItems.style.display = visible ? 'flex' : 'none'
+}
+
 // Persist style
 const saveBtn = document.getElementById("save-style")
 const loadBtn = document.getElementById("load-style")

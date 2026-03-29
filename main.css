@@ -24,9 +24,15 @@
     --color-finish: hsl(0, 100%, 50%);
     --color-key: hsl(60, 100%, 50%);
 
+    --border-thickness: 5px;
+
     --text-invasion: hsl(120, 40%, 60%);
     --text-dragon: hsl(240, 40%, 60%);
     --text-finish: hsl(0, 40%, 60%);
+
+    --text-required: white;
+    --text-keys: yellow;
+    --left-text-size: 21px;
 }
 
 html {
@@ -56,7 +62,6 @@ h1 {
 }
 
 img {
-    border: 5px solid;
     border-radius: 30%;
     margin: 0;
 }
@@ -83,13 +88,13 @@ img {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    font-size: 21px;
+    font-size: var(--left-text-size, 21px);
 }
 .label-required {
-    color: rgb(255, 255, 255);
+    color: var(--text-required);
 }
 .label-keys {
-    color: rgb(255, 255, 0);
+    color: var(--text-keys);
 }
 
 .col-header {
@@ -119,7 +124,7 @@ hr {
 .inventory {
     width: 50px;
     height: auto;
-    border-color: var(--blue);
+    border: var(--border-thickness) solid var(--blue);
     filter: grayscale(100%) opacity(75%);
 }
 .inventory.selected {

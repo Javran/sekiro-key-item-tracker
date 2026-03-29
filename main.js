@@ -211,6 +211,55 @@ sizeTop.oninput = () => {
     sizeTopValue.textContent = sizeTop.value
 }
 
+// Left column controls
+const colorRequired = document.getElementById("color-required")
+const colorKeys = document.getElementById("color-keys")
+const sizeLeft = document.getElementById("size-left")
+const sizeLeftValue = document.getElementById("size-left-value")
+
+colorRequired.oninput = () => {
+    document.documentElement.style.setProperty('--text-required', colorRequired.value)
+}
+colorKeys.oninput = () => {
+    document.documentElement.style.setProperty('--text-keys', colorKeys.value)
+}
+sizeLeft.oninput = () => {
+    document.documentElement.style.setProperty('--left-text-size', sizeLeft.value + 'px')
+    sizeLeftValue.textContent = sizeLeft.value
+}
+
+// Items controls
+const borderInvasion = document.getElementById("border-invasion")
+const borderDragon = document.getElementById("border-dragon")
+const borderFinish = document.getElementById("border-finish")
+const borderKey = document.getElementById("border-key")
+const borderThickness = document.getElementById("border-thickness")
+const borderThicknessValue = document.getElementById("border-thickness-value")
+
+borderInvasion.oninput = () => {
+    document.documentElement.style.setProperty('--color-invasion', borderInvasion.value)
+}
+borderDragon.oninput = () => {
+    document.documentElement.style.setProperty('--color-dragon', borderDragon.value)
+}
+borderFinish.oninput = () => {
+    document.documentElement.style.setProperty('--color-finish', borderFinish.value)
+}
+borderKey.oninput = () => {
+    document.documentElement.style.setProperty('--color-key', borderKey.value)
+}
+borderThickness.oninput = () => {
+    document.documentElement.style.setProperty('--border-thickness', borderThickness.value + 'px')
+    borderThicknessValue.textContent = borderThickness.value
+}
+
+// Transparent BG
+const transparentBg = document.getElementById("transparent-bg")
+transparentBg.onchange = () => {
+    document.body.style.backgroundColor = transparentBg.checked ? 'transparent' : 'var(--bg-color)'
+    document.querySelector('.sticky').style.backgroundColor = transparentBg.checked ? 'transparent' : 'var(--bg-color)'
+}
+
 // Persist style
 const saveBtn = document.getElementById("save-style")
 const loadBtn = document.getElementById("load-style")
@@ -222,6 +271,21 @@ saveBtn.onclick = () => {
             dragon: colorDragon.value,
             finish: colorFinish.value,
             size: sizeTop.value
+        },
+        leftColumn: {
+            required: colorRequired.value,
+            keys: colorKeys.value,
+            size: sizeLeft.value
+        },
+        items: {
+            invasion: borderInvasion.value,
+            dragon: borderDragon.value,
+            finish: borderFinish.value,
+            key: borderKey.value,
+            thickness: borderThickness.value
+        },
+        misc: {
+            transparentBg: transparentBg.checked
         }
     }
     localStorage.setItem("sekiro-style", JSON.stringify(style))
@@ -229,18 +293,49 @@ saveBtn.onclick = () => {
 
 loadBtn.onclick = () => {
     const style = JSON.parse(localStorage.getItem("sekiro-style"))
-    if (!style || !style.topTexts) return
+    if (!style) return
 
-    colorInvasion.value = style.topTexts.invasion
-    colorDragon.value = style.topTexts.dragon
-    colorFinish.value = style.topTexts.finish
-    sizeTop.value = style.topTexts.size
-    sizeTopValue.textContent = style.topTexts.size
+    if (style.topTexts) {
+        colorInvasion.value = style.topTexts.invasion
+        colorDragon.value = style.topTexts.dragon
+        colorFinish.value = style.topTexts.finish
+        sizeTop.value = style.topTexts.size
+        sizeTopValue.textContent = style.topTexts.size
+        document.documentElement.style.setProperty('--text-invasion', colorInvasion.value)
+        document.documentElement.style.setProperty('--text-dragon', colorDragon.value)
+        document.documentElement.style.setProperty('--text-finish', colorFinish.value)
+        document.documentElement.style.setProperty('--top-text-size', sizeTop.value + 'px')
+    }
 
-    document.documentElement.style.setProperty('--text-invasion', colorInvasion.value)
-    document.documentElement.style.setProperty('--text-dragon', colorDragon.value)
-    document.documentElement.style.setProperty('--text-finish', colorFinish.value)
-    document.documentElement.style.setProperty('--top-text-size', sizeTop.value + 'px')
+    if (style.leftColumn) {
+        colorRequired.value = style.leftColumn.required
+        colorKeys.value = style.leftColumn.keys
+        sizeLeft.value = style.leftColumn.size
+        sizeLeftValue.textContent = style.leftColumn.size
+        document.documentElement.style.setProperty('--text-required', colorRequired.value)
+        document.documentElement.style.setProperty('--text-keys', colorKeys.value)
+        document.documentElement.style.setProperty('--left-text-size', sizeLeft.value + 'px')
+    }
+
+    if (style.items) {
+        borderInvasion.value = style.items.invasion
+        borderDragon.value = style.items.dragon
+        borderFinish.value = style.items.finish
+        borderKey.value = style.items.key
+        borderThickness.value = style.items.thickness
+        borderThicknessValue.textContent = style.items.thickness
+        document.documentElement.style.setProperty('--color-invasion', borderInvasion.value)
+        document.documentElement.style.setProperty('--color-dragon', borderDragon.value)
+        document.documentElement.style.setProperty('--color-finish', borderFinish.value)
+        document.documentElement.style.setProperty('--color-key', borderKey.value)
+        document.documentElement.style.setProperty('--border-thickness', borderThickness.value + 'px')
+    }
+
+    if (style.misc) {
+        transparentBg.checked = style.misc.transparentBg
+        document.body.style.backgroundColor = transparentBg.checked ? 'transparent' : 'var(--bg-color)'
+        document.querySelector('.sticky').style.backgroundColor = transparentBg.checked ? 'transparent' : 'var(--bg-color)'
+    }
 }
 
 // Auto-load on page load

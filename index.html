@@ -29,23 +29,23 @@
 
     <div class="control-group">
       <span>Left column</span>
-      <label>Required <input type="color" value="#ffffff"></label>
-      <label>Keys <input type="color" value="#ffff00"></label>
-      <label>Size <input type="range" min="12" max="32" value="21"></label>
+      <label>Required <input type="color" id="color-required" value="#ffffff"></label>
+      <label>Keys <input type="color" id="color-keys" value="#ffff00"></label>
+      <label>Size <input type="range" id="size-left" min="12" max="36" value="21"> <span id="size-left-value">21</span></label>
     </div>
 
     <div class="control-group">
       <span>Items</span>
-      <label>Invasion <input type="color" value="#00ff00"></label>
-      <label>Dragon <input type="color" value="#0064ff"></label>
-      <label>Finish <input type="color" value="#ff0000"></label>
-      <label>Key <input type="color" value="#ffff00"></label>
-      <label>Border <input type="range" min="1" max="10" value="5"></label>
+      <label>Invasion <input type="color" id="border-invasion" value="#00ff00"></label>
+      <label>Dragon <input type="color" id="border-dragon" value="#0064ff"></label>
+      <label>Finish <input type="color" id="border-finish" value="#ff0000"></label>
+      <label>Key <input type="color" id="border-key" value="#ffff00"></label>
+      <label>Border <input type="range" id="border-thickness" min="1" max="10" value="5"> <span id="border-thickness-value">5</span></label>
     </div>
 
     <div class="control-group">
       <span>Misc.</span>
-      <label>Transparent BG <input type="checkbox"></label>
+      <label>Transparent BG <input type="checkbox" id="transparent-bg"></label>
       <label>Reset items? <input type="checkbox" id="reset-confirm"></label>
       <button id="reset-btn" disabled>Reset</button>
     </div>

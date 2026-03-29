@@ -1,18 +1,25 @@
 const inventory = [
-    { id: "prosthetic_tool", name: "Prosthetic Tool" },
-    { id: "bell_charm", name: "Bell Charm" },
-    { id: "gatehouse_key", name: "Gatehouse Key" },
-    { id: "gun_fort_shrine_key", name: "Gun Fort Shrine Key" },
-    { id: "hidden_temple_key", name: "Hidden Temple Key" },
-    { id: "secret_passage_key", name: "Secret Passage Key" },
-    { id: "lotus_of_the_palace", name: "Lotus of the Palace" },
-    { id: "shelter_stone", name: "Shelter Stone" },
-    { id: "mortal_blade", name: "Mortal Blade" },
-    { id: "aromatic_branch", name: "Aromatic Branch" },
-    { id: "divine_dragons_tears", name: "Divine Dragon's Tears" },
-    { id: "puppeteer_ninjutsu", name: "Puppeteer Ninjutsu" },
-    { id: "mibu_breathing_technique", name: "Mibu Breathing Technique" },
-    { id: "fathers_bell_charm", name: "Father's Bell Charm" },
+    // Invasion
+    { id: "mortal_blade", name: "Mortal Blade", type: "invasion" },
+    { id: "shelter_stone", name: "Shelter Stone", type: "invasion" },
+    { id: "lotus_of_the_palace", name: "Lotus of the Palace", type: "invasion" },
+
+    // Dragon
+    { id: "aromatic_branch", name: "Aromatic Branch", type: "dragon" },
+    { id: "mibu_breathing_technique", name: "Mibu Breathing Technique", type: "dragon" },
+
+    // Finish
+    { id: "secret_passage_key", name: "Secret Passage Key", type: "finish" },
+    { id: "divine_dragons_tears", name: "Divine Dragon's Tears", type: "finish" },
+
+    // Key
+    { id: "prosthetic_tool", name: "Prosthetic Tool", type: "key" },
+    { id: "bell_charm", name: "Bell Charm", type: "key" },
+    { id: "fathers_bell_charm", name: "Father's Bell Charm", type: "key" },
+    { id: "puppeteer_ninjutsu", name: "Puppeteer Ninjutsu", type: "key" },
+    { id: "gatehouse_key", name: "Gatehouse Key", type: "key" },
+    { id: "gun_fort_shrine_key", name: "Gun Fort Shrine Key", type: "key" },
+    { id: "hidden_temple_key", name: "Hidden Temple Key", type: "key" },
 ];
 
 function getSource(id) {
@@ -48,8 +55,13 @@ function ToggleItem(event) {
 function init() {
     let container = document.getElementById("inventory-container");
 
-    for (let item of inventory) {
+    for (let i = 0; i < inventory.length; i++) {
+        let item = inventory[i];
         let source = getSource(item.id);
+
+        if (i === 7) {
+            container.appendChild(document.createElement("br"));
+        }
 
         let div = document.createElement("div");
         div.className = "element";
@@ -59,6 +71,7 @@ function init() {
         img.alt = item.name;
         img.src = source;
         img.id = item.id;
+        img.dataset.type = item.type;
 
         let tooltip = document.createElement("div");
         tooltip.id = "tooltip_" + item.id;

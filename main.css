@@ -18,6 +18,11 @@
     --z-config: 15;
     --z-sticky: 10;
     --z-tooltip: 5;
+
+    --color-invasion: rgb(50, 180, 50);
+    --color-dragon: rgb(50, 120, 180);
+    --color-finish: rgb(180, 50, 50);
+    --color-key: rgb(180, 160, 50);
 }
 
 html {
@@ -57,6 +62,8 @@ img {
     z-index: var(--z-sticky);
     position: sticky;
     top: 0;
+    text-align: center;
+    padding-top: 10px;
 }
 
 hr {
@@ -72,6 +79,18 @@ hr {
 }
 .inventory.selected {
     filter: none !important;
+}
+.inventory[data-type="invasion"].selected {
+    border-color: var(--color-invasion);
+}
+.inventory[data-type="dragon"].selected {
+    border-color: var(--color-dragon);
+}
+.inventory[data-type="finish"].selected {
+    border-color: var(--color-finish);
+}
+.inventory[data-type="key"].selected {
+    border-color: var(--color-key);
 }
 
 .element {

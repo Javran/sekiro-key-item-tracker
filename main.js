@@ -174,27 +174,19 @@ inventory.slice(7).forEach(item => {
     }
 })
 
-const resetRadios = document.querySelectorAll('input[name="reset"]')
+const resetConfirm = document.getElementById("reset-confirm")
 const resetBtn = document.getElementById("reset-btn")
 
-const resetNo = Array.from(resetRadios).find(r => r.value === "no")
-const resetYes = Array.from(resetRadios).find(r => r.value === "yes")
-
-resetBtn.disabled = true
-
-const updateResetButton = () => {
-    resetBtn.disabled = !resetYes.checked
+resetConfirm.onchange = () => {
+    resetBtn.disabled = !resetConfirm.checked
 }
-
-if (resetNo) resetNo.onchange = updateResetButton
-if (resetYes) resetYes.onchange = updateResetButton
 
 resetBtn.onclick = () => {
     document.querySelectorAll('.inventory.selected').forEach(img => {
         img.classList.remove('selected')
     })
     updateUrl()
-    if (resetNo) resetNo.checked = true
+    resetConfirm.checked = false
     resetBtn.disabled = true
 }
 
@@ -218,3 +210,38 @@ sizeTop.oninput = () => {
     document.documentElement.style.setProperty('--top-text-size', sizeTop.value + 'px')
     sizeTopValue.textContent = sizeTop.value
 }
+
+// Persist style
+const saveBtn = document.getElementById("save-style")
+const loadBtn = document.getElementById("load-style")
+
+saveBtn.onclick = () => {
+    const style = {
+        topTexts: {
+            invasion: colorInvasion.value,
+            dragon: colorDragon.value,
+            finish: colorFinish.value,
+            size: sizeTop.value
+        }
+    }
+    localStorage.setItem("sekiro-style", JSON.stringify(style))
+}
+
+loadBtn.onclick = () => {
+    const style = JSON.parse(localStorage.getItem("sekiro-style"))
+    if (!style || !style.topTexts) return
+
+    colorInvasion.value = style.topTexts.invasion
+    colorDragon.value = style.topTexts.dragon
+    colorFinish.value = style.topTexts.finish
+    sizeTop.value = style.topTexts.size
+    sizeTopValue.textContent = style.topTexts.size
+
+    document.documentElement.style.setProperty('--text-invasion', colorInvasion.value)
+    document.documentElement.style.setProperty('--text-dragon', colorDragon.value)
+    document.documentElement.style.setProperty('--text-finish', colorFinish.value)
+    document.documentElement.style.setProperty('--top-text-size', sizeTop.value + 'px')
+}
+
+// Auto-load on page load
+loadBtn.onclick()

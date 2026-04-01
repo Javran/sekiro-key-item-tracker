@@ -265,13 +265,14 @@ borderThickness.oninput = () => {
     checkUnsavedChanges()
 }
 
-// Transparent BG
-const transparentBg = document.getElementById("transparent-bg")
-transparentBg.onchange = () => {
-    document.body.style.backgroundColor = transparentBg.checked ? 'transparent' : 'var(--bg-color)'
-    document.querySelector('.sticky').style.backgroundColor = transparentBg.checked ? 'transparent' : 'var(--bg-color)'
+// Background color
+const bgColor = document.getElementById("bg-color")
+const updateBgColor = () => {
+    document.body.style.backgroundColor = bgColor.value
+    document.querySelector('.sticky').style.backgroundColor = bgColor.value
     checkUnsavedChanges()
 }
+bgColor.oninput = updateBgColor
 
 // Show/Hide controls
 const showControls = document.getElementById("show-controls")
@@ -318,7 +319,7 @@ const getCurrentStyle = () => ({
         thickness: borderThickness.value
     },
     misc: {
-        transparentBg: transparentBg.checked
+        bgColor: bgColor.value
     }
 })
 
@@ -354,7 +355,7 @@ saveBtn.onclick = () => {
             thickness: borderThickness.value
         },
         misc: {
-            transparentBg: transparentBg.checked
+            bgColor: bgColor.value
         }
     }
     localStorage.setItem("sekiro-style", JSON.stringify(style))
@@ -403,9 +404,9 @@ loadBtn.onclick = () => {
     }
 
     if (style.misc) {
-        transparentBg.checked = style.misc.transparentBg
-        document.body.style.backgroundColor = transparentBg.checked ? 'transparent' : 'var(--bg-color)'
-        document.querySelector('.sticky').style.backgroundColor = transparentBg.checked ? 'transparent' : 'var(--bg-color)'
+        bgColor.value = style.misc.bgColor
+        document.body.style.backgroundColor = bgColor.value
+        document.querySelector('.sticky').style.backgroundColor = bgColor.value
     }
 
     savedStyle = JSON.stringify(getCurrentStyle())

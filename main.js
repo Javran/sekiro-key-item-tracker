@@ -367,6 +367,13 @@ loadBtn.onclick = () => {
     const style = JSON.parse(localStorage.getItem("sekiro-style"))
     if (!style) return
 
+    if (style.misc && style.misc.transparentBg !== undefined) {
+        // Migration: transparentBg (old) -> bgColor (new)
+        style.misc.bgColor = "#29231e"
+        delete style.misc.transparentBg
+        localStorage.setItem("sekiro-style", JSON.stringify(style))
+    }
+
     if (style.topTexts) {
         colorInvasion.value = style.topTexts.invasion
         colorDragon.value = style.topTexts.dragon

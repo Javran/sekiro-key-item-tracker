@@ -33,7 +33,7 @@
     --text-required: white;
     --text-keys: yellow;
     --left-text-size: 21px;
-    --control-panel-bg: rgb(0 0 0 / 30%);
+    --control-panel-bg: rgb(0 0 0 / 75%);
 }
 
 html {

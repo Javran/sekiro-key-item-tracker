@@ -166,6 +166,10 @@ hr {
     border-radius: 10%;
     z-index: var(--z-tooltip);
     filter: opacity(75%) !important;
+    visibility: hidden;
+}
+.element:hover .tooltip {
+    visibility: visible;
 }
 .tooltip.inventory {
     font-size: 10px;
@@ -173,18 +177,6 @@ hr {
     height: 25px;
     bottom: -20px;
     left:   -8px;
-}
-.invisible {
-    visibility: hidden;
-    position: fixed;
-    top: 0px;
-    left: 0px;
-}
-.tooltip.invisible {
-    visibility: hidden;
-    position: absolute;
-    top: auto;
-    left: auto;
 }
 
 #control-panel {

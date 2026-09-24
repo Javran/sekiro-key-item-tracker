@@ -87,8 +87,7 @@ const addItem = item => {
     img.dataset.type = item.type
 
     const tooltip = document.createElement("div")
-    tooltip.id = "tooltip_" + item.id
-    tooltip.className = "invisible tooltip inventory"
+    tooltip.className = "tooltip inventory"
     tooltip.textContent = item.name
 
     div.appendChild(img)
@@ -100,21 +99,14 @@ const addItem = item => {
     }
 
     img.onmouseup = event => {
-        const target = event.target
         if (event.button === 0) {
-            target.classList.toggle("selected")
+            img.classList.toggle("selected")
             updateUrl()
         }
     }
     img.oncontextmenu = event => {
         event.preventDefault()
         return false
-    }
-    img.onmouseenter = event => {
-        document.getElementById("tooltip_" + event.target.id).classList.remove("invisible")
-    }
-    img.onmouseleave = event => {
-        document.getElementById("tooltip_" + event.target.id).classList.add("invisible")
     }
 }
 
@@ -221,8 +213,7 @@ const bgTransparent = document.getElementById("bg-transparent")
 
 const applyBgColor = () => {
     const color = bgTransparent.checked ? 'transparent' : bgColor.value
-    document.body.style.backgroundColor = color
-    document.querySelector('.sticky').style.backgroundColor = color
+    document.documentElement.style.setProperty('--bg-color', color)
     document.body.classList.toggle('transparent-bg', bgTransparent.checked)
 }
 
@@ -235,7 +226,10 @@ bgTransparent.onchange = () => {
     checkUnsavedChanges()
 }
 
-// Show/Hide controls
+/*
+  Show/Hide controls. note that this intentionally doesn't affect "Misc." row,
+  which provides easy access to resetting items.
+ */
 const showControls = document.getElementById("show-controls")
 const groupTopTexts = document.getElementById("group-top-texts")
 const groupLeftColumn = document.getElementById("group-left-column")
@@ -297,32 +291,8 @@ const checkUnsavedChanges = () => {
 }
 
 saveBtn.onclick = () => {
-    const style = {
-        topTexts: {
-            invasion: colorInvasion.value,
-            dragon: colorDragon.value,
-            finish: colorFinish.value,
-            size: sizeTop.value
-        },
-        leftColumn: {
-            required: colorRequired.value,
-            keys: colorKeys.value,
-            size: sizeLeft.value
-        },
-        items: {
-            invasion: borderInvasion.value,
-            dragon: borderDragon.value,
-            finish: borderFinish.value,
-            key: borderKey.value,
-            thickness: borderThickness.value
-        },
-        misc: {
-            bgColor: bgColor.value,
-            bgTransparent: bgTransparent.checked
-        }
-    }
-    localStorage.setItem("sekiro-style", JSON.stringify(style))
     savedStyle = JSON.stringify(getCurrentStyle())
+    localStorage.setItem("sekiro-style", savedStyle)
     checkUnsavedChanges()
 }
 

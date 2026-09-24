@@ -22,16 +22,19 @@ const inventory = [
     { id: "hidden_temple_key", name: "Hidden Temple Key", type: "key", encode: "htk" },
 ]
 
-const encodes = inventory.map(i => i.encode)
-const seen = new Set()
-for (const e of encodes) {
-    if (seen.has(e)) console.error("Duplicate encode:", e)
-    seen.add(e)
-}
+// Sanity check to avoid duping inventory.
+;(() => {
+    const seen = new Set()
+    for (const { encode } of inventory) {
+        if (seen.has(encode)) console.error("Duplicate encode:", encode)
+        seen.add(encode)
+    }
+})()
 
 const getSource = id => `img/${id}.png`
 
-const getSelectedFromUrl = () => {
+// Decode selected items from URL, e.g. "?sel=mb,ss,lp"
+const selectedIds = (() => {
     const params = new URLSearchParams(window.location.search)
     const sel = params.get("sel")
     if (!sel) return new Set()
@@ -43,7 +46,7 @@ const getSelectedFromUrl = () => {
         }
     }
     return selectedIds
-}
+})()
 
 const updateUrl = () => {
     const selectedEncodes = inventory
@@ -61,7 +64,6 @@ const updateUrl = () => {
 }
 
 const container = document.getElementById("inventory-container")
-const selectedIds = getSelectedFromUrl()
 
 const mkLabel = (className, text) => {
     const div = document.createElement("div")

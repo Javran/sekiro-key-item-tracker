@@ -1,11 +1,5 @@
 :root {
     --color1: rgb(41,  35,  23);
-    --color2: rgb(67,  53,  28);
-    --color3: rgb(105, 65,  78);
-    --color4: rgb(127, 95,  69);
-    --color5: rgb(144, 98,  72);
-    --color6: rgb(163, 97,  67);
-    --color7: rgb(171, 121, 81);
     --color8: rgb(247, 225, 181);
     --blue:   hsl(200, 100%, 70%);
 
@@ -13,9 +7,7 @@
     --tooltip-text-color: var(--color8);
     --tooltip-bg-color:   var(--color1);
     --bg-color:           var(--color1);
-    --link-color:         var(--color7);
 
-    --z-config: 15;
     --z-sticky: 10;
     --z-tooltip: 5;
 
@@ -32,6 +24,7 @@
 
     --text-required: white;
     --text-keys: yellow;
+    --top-text-size: 21px;
     --left-text-size: 21px;
     --control-panel-bg: rgb(0 0 0 / 75%);
     --text-outline-color: black;
@@ -56,11 +49,6 @@ a {
 }
 a:hover {
     color: var(--text-color);
-}
-
-h1 {
-    color: var(--link-color);
-    margin-bottom: 0%;
 }
 
 img {
@@ -126,15 +114,13 @@ body.transparent-bg #inventory-container {
     color: var(--text-finish);
 }
 
-hr {
-    border: 2px solid var(--color2);
-    border-radius: 100%;
-}
-
 .inventory {
     width: 50px;
     height: auto;
     border: var(--border-thickness) solid var(--blue);
+    /*
+      it's intentional that unselected items are still a bit visible.
+     */
     filter: grayscale(100%) opacity(75%);
 }
 .inventory.selected {

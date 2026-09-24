@@ -190,19 +190,6 @@ resetBtn.onclick = () => {
     resetBtn.disabled = true
 }
 
-// Default colors from index.html, offered as color picker swatches
-// TODO: sync with CSS? (we'll need hsl to rgb conversion)
-Coloris({
-  swatches: [
-    // text
-    "#66ff66", "#6666ff", "#ff6666",
-    // icon
-    "#00ff00", "#0064ff", "#ff0000",
-    // others
-    "#ffffff", "#ffff00", "#29231e",
-  ]
-})
-
 // Top texts controls
 const colorInvasion = document.getElementById("color-invasion")
 const colorDragon = document.getElementById("color-dragon")
@@ -445,6 +432,35 @@ loadBtn.onclick = () => {
     savedStyle = JSON.stringify(getCurrentStyle())
     checkUnsavedChanges()
 }
+
+// Default colors come from CSS variables.
+// Must run before loading saved style, which overrides these variables inline.
+;(() => {
+    const colorDefaults = [
+        [colorInvasion, "--text-invasion"],
+        [colorDragon, "--text-dragon"],
+        [colorFinish, "--text-finish"],
+        [colorRequired, "--text-required"],
+        [colorKeys, "--text-keys"],
+        [borderInvasion, "--color-invasion"],
+        [borderDragon, "--color-dragon"],
+        [borderFinish, "--color-finish"],
+        [borderKey, "--color-key"],
+        [bgColor, "--bg-color"],
+    ]
+
+    // Canvas normalizes any CSS color to "#rrggbb" (when opaque)
+    const colorCtx = document.createElement("canvas").getContext("2d")
+    const rootStyle = getComputedStyle(document.documentElement)
+    for (const [input, cssVar] of colorDefaults) {
+        colorCtx.fillStyle = rootStyle.getPropertyValue(cssVar).trim()
+        input.value = colorCtx.fillStyle
+    }
+
+    Coloris({
+        swatches: [...new Set(colorDefaults.map(([input]) => input.value))]
+    })
+})()
 
 // Auto-load on page load
 loadBtn.onclick()

@@ -190,6 +190,19 @@ resetBtn.onclick = () => {
     resetBtn.disabled = true
 }
 
+// Default colors from index.html, offered as color picker swatches
+// TODO: sync with CSS? (we'll need hsl to rgb conversion)
+Coloris({
+  swatches: [
+    // text
+    "#66ff66", "#6666ff", "#ff6666",
+    // icon
+    "#00ff00", "#0064ff", "#ff0000",
+    // others
+    "#ffffff", "#ffff00", "#29231e",
+  ]
+})
+
 // Top texts controls
 const colorInvasion = document.getElementById("color-invasion")
 const colorDragon = document.getElementById("color-dragon")

@@ -212,3 +212,13 @@ hr {
     gap: 5px;
     align-items: center;
 }
+/*
+  just wide enough for "#rrggbb",
+  plus room for the 30px Coloris swatch overlaid on the right.
+*/
+#control-panel input[data-coloris] {
+    width: 7.5ch;
+    padding-right: 30px;
+    font-family: monospace;
+    font-size: 11px;
+}

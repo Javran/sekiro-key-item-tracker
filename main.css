@@ -34,6 +34,7 @@
     --text-keys: yellow;
     --left-text-size: 21px;
     --control-panel-bg: rgb(0 0 0 / 75%);
+    --text-outline-color: black;
 }
 
 html {
@@ -73,6 +74,15 @@ img {
     position: sticky;
     top: 0;
     padding-top: 10px;
+}
+
+/*
+  theory is, with obs browser, text antialiasing has no dark edge to blend into,
+  unlike a chroma-keyed capture.
+  so adding an outline to attempt to make text stand out.
+*/
+body.transparent-bg #inventory-container {
+    text-shadow: 0 0 2px var(--text-outline-color);
 }
 
 #inventory-container {

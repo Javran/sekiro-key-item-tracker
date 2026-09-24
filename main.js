@@ -273,6 +273,7 @@ const applyBgColor = () => {
     const color = bgTransparent.checked ? 'transparent' : bgColor.value
     document.body.style.backgroundColor = color
     document.querySelector('.sticky').style.backgroundColor = color
+    document.body.classList.toggle('transparent-bg', bgTransparent.checked)
 }
 
 bgColor.oninput = () => {

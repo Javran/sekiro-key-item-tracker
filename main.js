@@ -63,27 +63,19 @@ const updateUrl = () => {
 const container = document.getElementById("inventory-container")
 const selectedIds = getSelectedFromUrl()
 
-const invasionHeader = document.createElement("div")
-invasionHeader.className = "col-header col-header-invasion"
-invasionHeader.textContent = "Invasion"
-container.appendChild(invasionHeader)
+const mkLabel = (className, text) => {
+    const div = document.createElement("div")
+    div.className = className
+    div.textContent = text
+    container.appendChild(div)
+}
 
-const dragonHeader = document.createElement("div")
-dragonHeader.className = "col-header col-header-dragon"
-dragonHeader.textContent = "Dragon"
-container.appendChild(dragonHeader)
+mkLabel("col-header col-header-invasion", "Invasion")
+mkLabel("col-header col-header-dragon", "Dragon")
+mkLabel("col-header col-header-finish", "Finish")
+mkLabel("row-label label-required", "Required:")
 
-const finishHeader = document.createElement("div")
-finishHeader.className = "col-header col-header-finish"
-finishHeader.textContent = "Finish"
-container.appendChild(finishHeader)
-
-const requiredLabel = document.createElement("div")
-requiredLabel.className = "row-label label-required"
-requiredLabel.textContent = "Required:"
-container.appendChild(requiredLabel)
-
-inventory.slice(0, 7).forEach(item => {
+const addItem = item => {
     const div = document.createElement("div")
     div.className = "element"
 
@@ -124,55 +116,13 @@ inventory.slice(0, 7).forEach(item => {
     img.onmouseleave = event => {
         document.getElementById("tooltip_" + event.target.id).classList.add("invisible")
     }
-})
+}
 
-const keysLabel = document.createElement("div")
-keysLabel.className = "row-label label-keys"
-keysLabel.textContent = "Keys:"
-container.appendChild(keysLabel)
+inventory.filter(item => item.type !== "key").forEach(addItem)
 
-inventory.slice(7).forEach(item => {
-    const div = document.createElement("div")
-    div.className = "element"
+mkLabel("row-label label-keys", "Keys:")
 
-    const img = document.createElement("img")
-    img.className = "inventory"
-    img.alt = item.name
-    img.src = getSource(item.id)
-    img.id = item.id
-    img.dataset.type = item.type
-
-    const tooltip = document.createElement("div")
-    tooltip.id = "tooltip_" + item.id
-    tooltip.className = "invisible tooltip inventory"
-    tooltip.textContent = item.name
-
-    div.appendChild(img)
-    div.appendChild(tooltip)
-    container.appendChild(div)
-
-    if (selectedIds.has(item.id)) {
-        img.classList.add("selected")
-    }
-
-    img.onmouseup = event => {
-        const target = event.target
-        if (event.button === 0) {
-            target.classList.toggle("selected")
-            updateUrl()
-        }
-    }
-    img.oncontextmenu = event => {
-        event.preventDefault()
-        return false
-    }
-    img.onmouseenter = event => {
-        document.getElementById("tooltip_" + event.target.id).classList.remove("invisible")
-    }
-    img.onmouseleave = event => {
-        document.getElementById("tooltip_" + event.target.id).classList.add("invisible")
-    }
-})
+inventory.filter(item => item.type === "key").forEach(addItem)
 
 const resetConfirm = document.getElementById("reset-confirm")
 const resetBtn = document.getElementById("reset-btn")

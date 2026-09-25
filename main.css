@@ -87,6 +87,7 @@ body.transparent-bg #inventory-container {
     align-items: center;
     justify-content: flex-end;
     font-size: var(--left-text-size, 21px);
+    font-weight: bold;
 }
 .label-required {
     color: var(--text-required);
@@ -100,6 +101,7 @@ body.transparent-bg #inventory-container {
     align-items: center;
     justify-content: center;
     font-size: var(--top-text-size, 21px);
+    font-weight: bold;
 }
 .col-header-invasion {
     grid-column: 2 / span 3;
